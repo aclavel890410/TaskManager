@@ -1,4 +1,4 @@
-import { Body, Controller, Get, Param, Patch, Post, Query } from '@nestjs/common';
+import { Body, Controller, Delete, Get, Param, Patch, Post, Query } from '@nestjs/common';
 import { StandardSchemaValidationPipe } from '@nestjs/common';
 import {
   createTaskSchema,
@@ -50,5 +50,10 @@ export class TasksController {
     dto: UpdateTaskDto,
   ) {
     return this.tasksService.update(id, dto);
+  }
+
+  @Delete(':id')
+  remove(@Param('id') id: string) {
+    return this.tasksService.remove(id);
   }
 }
