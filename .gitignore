@@ -7,6 +7,12 @@
 .env.*
 !.env.example
 
+# AI assistant tooling
+/.agents
+/.claude
+/.windsurf
+/skills-lock.json
+
 # logs
 logs
 *.log
@@ -40,3 +46,5 @@ pnpm-debug.log*
 
 # TypeScript
 *.tsbuildinfo
+
+/src/generated/prisma
