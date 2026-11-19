@@ -1,7 +1,8 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, NotFoundException } from '@nestjs/common';
 import { PrismaService } from '../prisma/prisma.service';
 import { CreateTaskDto } from './create-task.dto';
 import { ListTasksDto } from './list-tasks.dto';
+import { UpdateTaskDto } from './update-task.dto';
 
 @Injectable()
 export class TasksService {
@@ -46,5 +47,24 @@ export class TasksService {
         totalPages: Math.ceil(total / dto.limit),
       },
     };
+  }
+
+  async update(id: string, dto: UpdateTaskDto) {
+    const task = await this.prisma.task.findUnique({ where: { id } });
+
+    if (!task) {
+      throw new NotFoundException(`Tarea con id ${id} no encontrada`);
+    }
+
+    return this.prisma.task.update({
+      where: { id },
+      data: {
+        ...(dto.title !== undefined ? { title: dto.title } : {}),
+        ...(dto.description !== undefined ? { description: dto.description } : {}),
+        ...(dto.status !== undefined ? { status: dto.status } : {}),
+        ...(dto.responsible !== undefined ? { responsible: dto.responsible } : {}),
+        ...(dto.dueDate !== undefined ? { dueDate: dto.dueDate } : {}),
+      },
+    });
   }
 }

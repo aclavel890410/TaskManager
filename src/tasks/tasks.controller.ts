@@ -1,4 +1,4 @@
-import { Body, Controller, Get, Post, Query } from '@nestjs/common';
+import { Body, Controller, Get, Param, Patch, Post, Query } from '@nestjs/common';
 import { StandardSchemaValidationPipe } from '@nestjs/common';
 import {
   createTaskSchema,
@@ -8,6 +8,10 @@ import {
   listTasksSchema,
   type ListTasksDto,
 } from './list-tasks.dto';
+import {
+  updateTaskSchema,
+  type UpdateTaskDto,
+} from './update-task.dto';
 import { TasksService } from './tasks.service';
 
 @Controller('tasks')
@@ -34,5 +38,17 @@ export class TasksController {
     filters: ListTasksDto,
   ) {
     return this.tasksService.findAll(filters);
+  }
+
+  @Patch(':id')
+  update(
+    @Param('id') id: string,
+    @Body({
+      schema: updateTaskSchema,
+      pipes: [new StandardSchemaValidationPipe()],
+    })
+    dto: UpdateTaskDto,
+  ) {
+    return this.tasksService.update(id, dto);
   }
 }
