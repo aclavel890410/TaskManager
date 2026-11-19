@@ -220,3 +220,30 @@ Ejecutar el linter:
 ```bash
 npm run lint
 ```
+
+
+
+## Uso de inteligencia artificial
+
+Este proyecto fue desarrollado con asistencia de GitHub Copilot como agente de programación dentro de Visual Studio Code. La IA se utilizó para crear la estructura inicial, instalar y configurar las dependencias, implementar la API, diseñar el modelo de datos, documentar el proyecto y automatizar pruebas.
+
+El desarrollo se realizó mediante una conversación iterativa: se describían los requisitos funcionales y técnicos, se revisaba el código generado y se pedían ajustes o correcciones cuando fueron necesarios.
+
+### Principales prompts
+
+Los principales pedidos realizados a la IA fueron:
+
+- Crear un repositorio Git y un proyecto NestJS compatible con la versión 24.22 de Node.js.
+- Instalar y configurar Prisma para utilizar PostgreSQL.
+- Configurar PostgreSQL local sin utilizar contenedores Docker.
+- Definir una única tabla `tasks` con UUID, título, descripción, estado, responsable y fecha límite.
+- Crear los endpoints REST para crear, listar, consultar, editar y eliminar tareas.
+- Añadir filtrado por estado y responsable, junto con paginación.
+- Implementar validaciones con Zod y respuestas HTTP adecuadas.
+- Crear una colección de Postman para probar todos los endpoints y sus casos de error.
+- Separar las pruebas e2e en archivos distintos, cada uno relacionado con un endpoint.
+- Ejecutar y corregir errores de compilación y pruebas.
+- Crear esta documentación con las instrucciones necesarias para montar y ejecutar el proyecto.
+
+La IA actuó como apoyo de desarrollo, mientras que los cambios fueron validados mediante compilaciones, migraciones, consultas a PostgreSQL, pruebas e2e y solicitudes HTTP.
+
