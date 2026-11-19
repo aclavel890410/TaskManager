@@ -1,4 +1,16 @@
-import { Body, Controller, Delete, Get, Param, Patch, Post, Query } from '@nestjs/common';
+import {
+  Body,
+  Controller,
+  Delete,
+  Get,
+  HttpCode,
+  HttpStatus,
+  Param,
+  ParseUUIDPipe,
+  Patch,
+  Post,
+  Query,
+} from '@nestjs/common';
 import { StandardSchemaValidationPipe } from '@nestjs/common';
 import {
   createTaskSchema,
@@ -19,6 +31,7 @@ export class TasksController {
   constructor(private readonly tasksService: TasksService) {}
 
   @Post()
+  @HttpCode(HttpStatus.CREATED)
   create(
     @Body({
       schema: createTaskSchema,
@@ -41,8 +54,9 @@ export class TasksController {
   }
 
   @Patch(':id')
+  @HttpCode(HttpStatus.OK)
   update(
-    @Param('id') id: string,
+    @Param('id', new ParseUUIDPipe({ version: '4' })) id: string,
     @Body({
       schema: updateTaskSchema,
       pipes: [new StandardSchemaValidationPipe()],
@@ -53,7 +67,8 @@ export class TasksController {
   }
 
   @Delete(':id')
-  remove(@Param('id') id: string) {
+  @HttpCode(HttpStatus.OK)
+  remove(@Param('id', new ParseUUIDPipe({ version: '4' })) id: string) {
     return this.tasksService.remove(id);
   }
 }
