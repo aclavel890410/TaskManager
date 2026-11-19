@@ -49,6 +49,18 @@ export class TasksService {
     };
   }
 
+  async findOne(id: string) {
+    const task = await this.prisma.task.findUnique({
+      where: { id },
+    });
+
+    if (!task) {
+      throw new NotFoundException(`Tarea con id ${id} no encontrada`);
+    }
+
+    return task;
+  }
+
   async remove(id: string) {
     const task = await this.prisma.task.findUnique({
       where: { id },

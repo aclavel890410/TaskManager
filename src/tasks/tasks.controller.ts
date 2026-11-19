@@ -53,6 +53,11 @@ export class TasksController {
     return this.tasksService.findAll(filters);
   }
 
+  @Get(':id')
+  findOne(@Param('id', new ParseUUIDPipe({ version: '4' })) id: string) {
+    return this.tasksService.findOne(id);
+  }
+
   @Patch(':id')
   @HttpCode(HttpStatus.OK)
   update(
